@@ -1,5 +1,5 @@
 
-import 'package:final_year_project/sign_up_email.dart';
+import 'package:final_year_project/view/email_auth/sign_up_email.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

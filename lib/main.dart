@@ -1,6 +1,6 @@
 import 'package:final_year_project/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:final_year_project/login_screen.dart';
+import 'package:final_year_project/view/email_auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
 
