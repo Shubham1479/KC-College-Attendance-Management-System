@@ -1,15 +1,43 @@
+import 'dart:developer';
+
+import 'package:final_year_project/view/phone_auth/verify_otp.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class singInWithPhone extends StatefulWidget {
-  const singInWithPhone({super.key});
+class SignInWithPhone extends StatefulWidget {
+  const SignInWithPhone({ Key? key }) : super(key: key);
 
   @override
-  State<singInWithPhone> createState() => _singInWithPhoneState();
+  State<SignInWithPhone> createState() => _SignInWithPhoneState();
 }
 
-class _singInWithPhoneState extends State<singInWithPhone> {
- @override
+class _SignInWithPhoneState extends State<SignInWithPhone> {
+
+  TextEditingController phoneController = TextEditingController();
+
+  void sendOTP() async {
+    String phone = "+91" + phoneController.text.trim();
+
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: phone,
+      codeSent: (verificationId, resendToken) {
+        Navigator.push(context, CupertinoPageRoute(
+          builder: (context) => VerifyOtpScreen(
+            verificationId: verificationId,
+          )
+        ));
+      },
+      verificationCompleted: (credential) {},
+      verificationFailed: (ex) {
+        log(ex.code.toString());
+      },
+      codeAutoRetrievalTimeout: (verificationId) {},
+      timeout: Duration(seconds: 30)
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +54,7 @@ class _singInWithPhoneState extends State<singInWithPhone> {
                 children: [
                   
                   TextField(
-                    
+                    controller: phoneController,
                     decoration: InputDecoration(
                       labelText: "Phone Number"
                     ),
@@ -36,7 +64,7 @@ class _singInWithPhoneState extends State<singInWithPhone> {
 
                   CupertinoButton(
                     onPressed: () {
-                     
+                      sendOTP();
                     },
                     color: Colors.blue,
                     child: Text("Sign In"),

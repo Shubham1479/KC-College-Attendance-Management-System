@@ -1,16 +1,44 @@
+import 'dart:developer';
 
 import 'package:final_year_project/view/email_auth/sign_up_email.dart';
+import 'package:final_year_project/view/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
-class loginScreen extends StatefulWidget {
-  const loginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<loginScreen> createState() => _loginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _loginScreenState extends State<loginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void login() async {
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    if (email == "" || password == "") {
+      log("Please fill all the fields!");
+    } else {
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
+        if (userCredential.user != null) {
+          Navigator.popUntil(context, (route) => route.isFirst);
+          Navigator.pushReplacement(
+              context, CupertinoPageRoute(builder: (context) => HomeScreen()));
+        }
+      } on FirebaseAuthException catch (ex) {
+        log(ex.code.toString());
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,24 +53,28 @@ class _loginScreenState extends State<loginScreen> {
               padding: EdgeInsets.all(15),
               child: Column(
                 children: [
-                  const TextField(
+                  TextField(
+                    controller: emailController,
                     decoration: InputDecoration(labelText: "Email Address"),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 10,
                   ),
-                  const TextField(
+                  TextField(
+                    controller: passwordController,
                     decoration: InputDecoration(labelText: "Password"),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 20,
                   ),
                   CupertinoButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      login();
+                    },
                     color: Colors.blue,
                     child: Text("Log In"),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 10,
                   ),
                   CupertinoButton(
@@ -50,7 +82,7 @@ class _loginScreenState extends State<loginScreen> {
                       Navigator.push(
                           context,
                           CupertinoPageRoute(
-                              builder: (context) => signUpPage()));
+                              builder: (context) => SignUpScreen()));
                     },
                     child: Text("Create an Account"),
                   ),
