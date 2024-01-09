@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "766260841921",
+    "project_id": "kcit-attendance-backend",
+    "storage_bucket": "kcit-attendance-backend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766260841921:android:d99aa7c7293e9aab033340",
+        "android_client_info": {
+          "package_name": "com.example.final_year_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx__L1eshK_toifBr712oBk0SAFO-3oqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
