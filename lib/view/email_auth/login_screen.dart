@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:final_year_project/view/email_auth/sign_up_email.dart';
-import 'package:final_year_project/view/home_screen.dart';
+import 'package:final_year_project/view/screens/Info_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
