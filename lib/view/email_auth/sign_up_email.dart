@@ -27,6 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       log("Passwords do not match!");
     } else {
       try {
+        // Creating New user 
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
         if (userCredential.user != null) {

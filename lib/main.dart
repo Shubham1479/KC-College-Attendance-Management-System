@@ -1,6 +1,8 @@
 import 'package:final_year_project/firebase_options.dart';
 import 'package:final_year_project/view/email_auth/login_screen.dart';
+import 'package:final_year_project/view/recording_view/audio_record_view.dart';
 import 'package:final_year_project/view/screens/Info_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +24,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:HomeScreen(),
+      home:AudioRecordingAndViewing() 
+      //(FirebaseAuth.instance.currentUser) != null ? HomeScreen() :LoginScreen(),
     );
   }
 }
